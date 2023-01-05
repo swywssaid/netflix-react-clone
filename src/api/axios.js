@@ -1,5 +1,5 @@
 import axios from "axios";
-const config = require("./config/key");
+const config = require("../config/key");
 
 const instance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
