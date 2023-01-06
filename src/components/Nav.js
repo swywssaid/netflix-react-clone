@@ -8,7 +8,6 @@ export default function Nav() {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 50) {
         setShow(true);
-        console.log(window.scrollY);
       } else {
         setShow(false);
       }
