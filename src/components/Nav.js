@@ -22,7 +22,7 @@ export default function Nav() {
     <nav className={`nav ${show && "nav__black"}`}>
       <img
         alt="Netflix logo"
-        src="https://w.namu.la/s/984a3a524c3a76ef69967a3538f0b655d9e4a9b948314bd8d57f34a1502753104f1613f356c08d4352cdfad86bbea9cd56b2133ea5c9c7a57f1c065b1048cb5bf606e29e4d8af5980ecc7fa3a2f9a6e827c41ac279f8f191622d6130e4c6fc98"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/300px-Netflix_2015_logo.svg.png"
         className="nav__logo"
         onClick={() => window.location.reload()}
       />
