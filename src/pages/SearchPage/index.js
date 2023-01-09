@@ -2,6 +2,7 @@ import axios from "../../api/axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./SearchPage.css";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export default function SearchPage() {
   const [searchResults, setSearchResults] = useState([]);
@@ -12,14 +13,15 @@ export default function SearchPage() {
 
   let query = useQuery();
   const searchTerm = query.get("q");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    if (searchTerm) fetchSearchMovie(searchTerm);
-  }, [searchTerm]);
+    if (debouncedSearchTerm) fetchSearchMovie(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
-  const fetchSearchMovie = async (searchTerm) => {
+  const fetchSearchMovie = async (debouncedSearchTerm) => {
     try {
-      const request = await axios.get(`/search/multi?include_adult=false&query=${searchTerm}`);
+      const request = await axios.get(`/search/multi?include_adult=false&query=${debouncedSearchTerm}`);
       setSearchResults(request.data.results);
     } catch (err) {
       console.log("error", err);
@@ -33,7 +35,7 @@ export default function SearchPage() {
           if (movie.backdrop_path !== null && movie.media_type !== "person") {
             const movieImageUrl = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
             return (
-              <div className="movie">
+              <div className="movie" key={movie.id}>
                 <div className="movie__column-poster">
                   <img src={movieImageUrl} alt="movie" className="movie__poster" />
                 </div>
@@ -46,7 +48,7 @@ export default function SearchPage() {
     ) : (
       <section className="no-results">
         <div className="no-results__text">
-          <p>찾고자하는 검색어"{searchTerm}"에 맞는 영화가 없습니다.</p>
+          <p>찾고자하는 검색어"{debouncedSearchTerm}"에 맞는 영화가 없습니다.</p>
         </div>
       </section>
     );
