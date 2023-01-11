@@ -1,7 +1,7 @@
 import axios from "../api/axios";
 import React, { useState, useEffect } from "react";
 import "./Row.css";
-import MovieModal from "./MovieModal/MovieModal";
+import MovieModal from "./MovieModal";
 
 export default function Row({ title, fetchUrl, isLargeRow, id }) {
   // 영화 정보 가져오기
